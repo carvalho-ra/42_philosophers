@@ -21,28 +21,25 @@ void    *routine()
 int main(void)
 {
     int i;
-    pthread_t   th[8];
+    pthread_t   th[4];
     
     pthread_mutex_init(&mutex, NULL);
     i = 0;
-    while (i < 8)
+    while (i < 4)
     {
         if (pthread_create(&th[i], NULL, &routine, NULL) != 0)
         {
             return (1);
         }
-        printf("Thread %i started\n", i);
         i++;
     }
     i = 0;
-    while (i < 8)
+    while (i < 4)
     {
         if (pthread_join(th[i], NULL) != 0)
         {
             return (1);
         }
-        printf("Thread %i finished\n", i);
-
         i++;
     }
     pthread_mutex_destroy(&mutex);

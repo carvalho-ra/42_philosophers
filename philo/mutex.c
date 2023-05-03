@@ -21,11 +21,11 @@ void    *routine()
 int main(void)
 {
     int i;
-    pthread_t   th[4];
+    pthread_t   th[2];
     
     pthread_mutex_init(&mutex, NULL);
     i = 0;
-    while (i < 4)
+    while (i < 2)
     {
         if (pthread_create(&th[i], NULL, &routine, NULL) != 0)
         {
@@ -34,7 +34,7 @@ int main(void)
         i++;
     }
     i = 0;
-    while (i < 4)
+    while (i < 2)
     {
         if (pthread_join(th[i], NULL) != 0)
         {

@@ -41,7 +41,7 @@ void    *create_philos(int nbr_of_philos)
 }
 
 //init data (struct data)
-void    init_data(int argc, char **argv)
+t_data  *init_data(int argc, char **argv)
 {
     t_data *data;
     
@@ -52,6 +52,7 @@ void    init_data(int argc, char **argv)
     data->time_to_sleep = ft_atoi(argv[4]);
     if (argc == 6)
         data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[6]);
+    return (data);
 }
 
 //create forks (mutex)

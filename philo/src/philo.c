@@ -9,6 +9,7 @@ int	main(int argc, char **argv)
 	init = curr_time();
 	start = curr_time() - init;
 	print_args(argc, argv);
+	//init_data(argc, argv);
 	create_philos(ft_atoi(argv[1]));
 	usleep(50000);
 	end = curr_time() - init;

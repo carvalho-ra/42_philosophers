@@ -48,6 +48,8 @@ unsigned long int	curr_time();
 //function prototypes - philosophers
 void    *create_philos(int nbr_of_philos);
 
+//function prototypes - data
+t_data  *init_data(int argc, char **argv);
 
 
 #endif

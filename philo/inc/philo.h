@@ -40,5 +40,9 @@ int	check_max_int(int argc, char **argv);
 int	validation(int argc, char **argv);
 void	print_args(int argc, char **argv);
 
+//function prototypes - time
+int start_time();
+int end_time();
+
 
 #endif

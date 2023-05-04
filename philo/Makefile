@@ -1,6 +1,9 @@
 NAME = philo
 
 SRCS = philo.c \
+		init.c \
+		utils.c \
+		validation.c \
 
 OBJS = $(SRCS:.c=.o)
 

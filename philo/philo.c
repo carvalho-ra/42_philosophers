@@ -2,8 +2,6 @@
 
 int	main(int argc, char **argv)
 {
-	if (validation(argc, argv) != 0)
-		return (1);
-    
+	print_args(argc, argv);
     return (0);
 }

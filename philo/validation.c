@@ -1,49 +1,27 @@
-#include <philo.h>
+#include "philo.h"
 
-//is digit
-int	ft_isdigit(int nbr)
-{
-	if (nbr < '0' || nbr > '9')
-		return (0);
-	else
-		return (1);
-}
-
-//ft_strlen
-int	ft_strlen(char *s)
+//empty argument
+int	check_empty(int argc, char **argv)
 {
 	int	i;
 
-	i = 0;
-	while (s[i])
+	i = 1;
+	if (!(argv[i]))
+		return (1);
+	while (i < argc)
+	{
+		if (ft_strlen(argv[i]) == 0)
+		{
+			if (argc > 2)
+			{
+				//remove error message
+				write(2, "Error - empty argument\n", 23);
+			}
+			return (1);
+		}
 		i++;
-	return (i);
-}
-
-//ft_atoi
-int	ft_atoi(const char *str)
-{
-	int		result;
-	size_t	count;
-	int		sign;
-
-	sign = 1;
-	result = 0;
-	count = 0;
-	while ((str[count] >= 9 && str[count] <= 13) || str[count] == 32)
-		count++;
-	if (str[count] == '-' || str[count] == '+')
-	{
-		if (str[count] == '-')
-			sign *= -1;
-		count++;
 	}
-	while (ft_isdigit(str[count]) == 1)
-	{
-		result = (result * 10) + (str[count] - '0');
-		count++;
-	}
-	return (result * sign);
+	return (0);
 }
 
 //has char
@@ -63,7 +41,8 @@ int	check_char(int argc, char **argv)
 				if (!((argv[i][j] == '+' || argv[i][j] == '-') &&
 					(j == 0) && (ft_strlen(argv[i]) > 1)))
 				{
-					write(2, "Error\n", 6);
+					//remove error message
+					write(2, "Error - argument has char\n", 26);
 					return (1);
 				}
 			}
@@ -74,17 +53,24 @@ int	check_char(int argc, char **argv)
 	return (0);
 }
 
-//int max min - no negative
-int	check_max_min_int(int argc, char **argv)
+//int max (no negative numbers)
+int	check_max_int(int argc, char **argv)
 {
 	int	i;
 
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_atol(argv[i]) > 2147483647 || ft_atol(argv[i] < 0))
+		if (ft_atoi(argv[i]) > 2147483647)
 		{
-			write(2, "Error\n", 6);
+			//remove error message
+			write(2, "Error - argument exceed max int\n", 32);
+			return (1);
+		}
+		if (ft_atoi(argv[i]) < 0)
+		{
+			//remove error message
+			write(2, "Error - argument has negative number\n", 37);
 			return (1);
 		}
 		i++;
@@ -95,9 +81,33 @@ int	check_max_min_int(int argc, char **argv)
 //all validations
 int	validation(int argc, char **argv)
 {
+	if (argc > 6 || argc < 5)
+	{
+		//remove error message
+		write(2, "Error - wrong number of arguments\n", 34);
+		return (1);
+	}
+	if (check_empty(argc, argv) == 1)
+		return (1);
 	if (check_char(argc, argv) == 1)
-		return (-1);
-	if (check_max_min_int(argc, argv) == 1)
-		return (-2);
+		return (1);
+	if (check_max_int(argc, argv) == 1)
+		return (1);
 	return (0);
+}
+
+//print args
+void	print_args(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	if (validation(argc, argv) == 0)
+	{
+		while (i < argc)
+		{
+			printf("argument (%i) = %i\n", i, ft_atoi(argv[i]));
+			i++;
+		}
+	}
 }

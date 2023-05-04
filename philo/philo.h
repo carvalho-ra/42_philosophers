@@ -10,8 +10,9 @@
 //includes
 #include <pthread.h> // threads
 #include <stdio.h> // REMOVE - debug
-#include <stdlib.h> //malloc array of threads (philos and forks)
-#include <sys/time.h> //gettimeofday
+#include <stdlib.h> // malloc array of threads (philos and forks)
+#include <sys/time.h> // gettimeofday
+#include <unistd.h> // write
 
 //data
 typedef struct s_time
@@ -29,7 +30,17 @@ typedef struct s_philo
 }
 t_philo;
 
-//function prototypes
+//function prototypes - utils
+int	ft_isdigit(int nbr);
+int	ft_strlen(char *s);
+int	ft_atoi(const char *str);
+
+//function prototypes - validation
+int	check_empty(int argc, char **argv);
+int	check_char(int argc, char **argv);
+int	check_max_int(int argc, char **argv);
+int	validation(int argc, char **argv);
+void	print_args(int argc, char **argv);
 
 
 #endif

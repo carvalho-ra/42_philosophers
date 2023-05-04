@@ -1,17 +1,9 @@
 #include "../inc/philo.h"
 
 //start time
-int start_time()
+unsigned long int	curr_time()
 {
-	struct timeval start;
-	gettimeofday(&start, NULL);
-	return (start.tv_usec / 1000);
-}
-
-//end time
-int end_time()
-{
-	struct timeval end;
-	gettimeofday(&end, NULL);
-	return (end.tv_usec / 1000);
+	struct timeval tm;
+	gettimeofday(&tm, NULL);
+	return (tm.tv_sec * 1000 + tm.tv_usec / 1000);
 }

@@ -2,13 +2,16 @@
 
 int	main(int argc, char **argv)
 {
-	struct timeval  start;
-	struct timeval  end;
+	unsigned long int	init;
+	unsigned long int	start;
+	unsigned long int	end;
 	
-	gettimeofday(&start, NULL);
+	init = curr_time();
+	start = curr_time() - init;
 	print_args(argc, argv);
-	//usleep(500);
-	gettimeofday(&end, NULL);
-	printf("start time = %i\nend time = %i\nexecution time = %i", start.tv_usec, end.tv_usec, end.tv_usec - start.tv_usec);
+	create_philos(ft_atoi(argv[1]));
+	usleep(50000);
+	end = curr_time() - init;
+	printf("start time = %lu milisec\nend time = %lu milisec\nexecution time = %lu milisec\n", start, end, end - start);
 	return (0);
 }

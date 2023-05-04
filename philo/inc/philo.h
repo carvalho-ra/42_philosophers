@@ -13,18 +13,20 @@
 #include <unistd.h> // write
 
 //data
-typedef struct s_time
+typedef struct s_data
 {
+	int	number_of_philosophers;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
+	int	number_of_times_each_philosopher_must_eat;
 }
-t_time;
+t_data;
 
 typedef struct s_philo
 {
-	int	number_of_philosophers;
-	int	number_of_times_each_philosopher_must_eat;
+	int	index;
+	int	time_last_meal;
 }
 t_philo;
 
@@ -41,8 +43,11 @@ int	validation(int argc, char **argv);
 void	print_args(int argc, char **argv);
 
 //function prototypes - time
-int start_time();
-int end_time();
+unsigned long int	curr_time();
+
+//function prototypes - philosophers
+void    *create_philos(int nbr_of_philos);
+
 
 
 #endif

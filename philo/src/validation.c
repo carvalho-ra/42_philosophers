@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "../inc/philo.h"
 
 //empty argument
 int	check_empty(int argc, char **argv)

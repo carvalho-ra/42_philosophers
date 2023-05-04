@@ -5,8 +5,6 @@
 // variables
 #define INT_MAX 2147483647
 
-
-
 //includes
 #include <pthread.h> // threads
 #include <stdio.h> // REMOVE - debug

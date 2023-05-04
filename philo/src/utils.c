@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "../inc/philo.h"
 
 //is digit
 int	ft_isdigit(int nbr)

@@ -11,7 +11,7 @@ int	main(int argc, char **argv)
 	start = curr_time() - init;
 	print_args(argc, argv);
 	data = init_data(argc, argv);
-	data->start_time = init;
+	data->initial_time = init;
 	init_data_philos(data);
 	create_philos(data);
 	usleep(50000);

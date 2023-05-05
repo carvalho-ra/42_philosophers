@@ -15,7 +15,7 @@
 //data
 typedef struct s_data
 {
-	long int	start_time; //not in use 
+	unsigned long int	initial_time;
 	int	number_of_philosophers;
 	int	time_to_die;
 	int	time_to_eat;

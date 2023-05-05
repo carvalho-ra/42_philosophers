@@ -17,22 +17,29 @@ void    *init_data_philos(t_data *data)
     //create an array of structs t_philo
     t_philo *data_philo[data->number_of_philosophers];
     
+    printf("%i", data->number_of_philosophers);
     //malloc array of structs (one for each philosopher)
-    data_philo[data->number_of_philosophers] = malloc(sizeof(t_philo) * data->number_of_philosophers);
+    data_philo[data->number_of_philosophers] = malloc(sizeof(t_philo) * data->number_of_philosophers + 1);
     if (!(data_philo[data->number_of_philosophers]))
         return (NULL);
     //set iterator to zero;
     i = 0;
+    printf("teste before while\n");
     while (i < data->number_of_philosophers)
     {
+        printf("teste in while\n");
+
         //set index of philosopher equal to i
         data_philo[i]->index = i;
+        printf("teste in while\n");
+
         //set last meal to zero
         data_philo[i]->time_last_meal = 0;
         //tell which struct data struct philo will have acsses to
         data_philo[i]->data = data;
         i++;
     }
+    printf("teste after while\n");
     return (0);
 }
 

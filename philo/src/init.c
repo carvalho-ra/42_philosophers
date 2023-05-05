@@ -1,38 +1,55 @@
 #include "../inc/philo.h"
 
 //routine
-void    *routine(void *arg)
+void    *routine()
 {
-    int i;
+    printf("philosopher created\n");
+    //usleep(500);
+    return (0);
+}
 
-    i = *(int *)arg;
-    printf("philosopher %i\n", i);
-    usleep(500);
+//create data philosophers (one struct for each philosopher)
+//function receives struct data (all informations from arguments) as argument
+void    *init_data_philos(t_data *data)
+{
+    //declare an iterator;
+    int i;
+    //create an array of structs t_philo
+    t_philo *data_philo[data->number_of_philosophers];
+    
+    //malloc array of structs (one for each philosopher)
+    data_philo[data->number_of_philosophers] = malloc(sizeof(t_philo) * data->number_of_philosophers);
+    if (!(data_philo[data->number_of_philosophers]))
+        return (NULL);
+    //set iterator to zero;
+    i = 0;
+    while (i < data->number_of_philosophers)
+    {
+        //set index of philosopher equal to i
+        data_philo[i]->index = i;
+        //set last meal to zero
+        data_philo[i]->time_last_meal = 0;
+        //tell which struct data struct philo will have acsses to
+        data_philo[i]->data = data;
+        i++;
+    }
     return (0);
 }
 
 //create philosophers (threads)
-void    *create_philos(int nbr_of_philos)
+void    *create_philos(t_data *data)
 {
-    int arr[nbr_of_philos];
     int i;
+    pthread_t philo[data->number_of_philosophers];
 
     i = 0;
-    while (i < nbr_of_philos)
+    while(i < data->number_of_philosophers)
     {
-        arr[i] = i;
-        i++;
-    }
-    pthread_t philo[nbr_of_philos];
-
-    i = 0;
-    while(i < nbr_of_philos)
-    {
-        pthread_create(&philo[i], NULL, &routine, &arr[i]);
+        pthread_create(&philo[i], NULL, &routine, NULL);
         i++;
     }
     i = 0;
-    while(i < nbr_of_philos)
+    while(i < data->number_of_philosophers)
     {
         pthread_join(philo[i], NULL);
         i++;
@@ -51,7 +68,7 @@ t_data  *init_data(int argc, char **argv)
     data->time_to_eat = ft_atoi(argv[3]);
     data->time_to_sleep = ft_atoi(argv[4]);
     if (argc == 6)
-        data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[6]);
+        data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
     return (data);
 }
 

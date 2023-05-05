@@ -15,6 +15,7 @@
 //data
 typedef struct s_data
 {
+	long int	start_time; //not in use 
 	int	number_of_philosophers;
 	int	time_to_die;
 	int	time_to_eat;
@@ -27,6 +28,9 @@ typedef struct s_philo
 {
 	int	index;
 	int	time_last_meal;
+	//pointer to right fork
+	//pointer to left fork
+	t_data	*data;
 }
 t_philo;
 
@@ -46,7 +50,8 @@ void	print_args(int argc, char **argv);
 unsigned long int	curr_time();
 
 //function prototypes - philosophers
-void    *create_philos(int nbr_of_philos);
+void    *init_data_philos(t_data *data);
+void    *create_philos(t_data *data);
 
 //function prototypes - data
 t_data  *init_data(int argc, char **argv);

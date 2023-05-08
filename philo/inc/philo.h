@@ -15,12 +15,12 @@
 //data
 typedef struct s_data
 {
-	unsigned int ini_time;
-	int	n_philos;
-	int	t_die;
-	int	t_eat;
-	int	t_sleep;
-	int	n_meals;
+	unsigned int	ini_time;
+	int				n_philos;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				n_meals;
 }
 t_data;
 
@@ -29,10 +29,13 @@ typedef struct s_philo
 	unsigned int	birth;
 	int	index;
 	int	t_last_meal;
-	//pointer to right fork
-	//pointer to left fork
+	//usar na pthread_mutex (lock/unlock) on routine
+	//another option is to pass the mutex array and split forks on routine
+	pthread_mutex_t *right;
+	pthread_mutex_t *left;
 	t_data	*data;
-}
+	pthread_t philo;
+} 
 t_philo;
 
 //function prototypes - utils
@@ -51,11 +54,11 @@ void	print_args(int argc, char **argv);
 unsigned long int	curr_time();
 
 //function prototypes - philosophers
-void    *init_data_philos(t_data *data);
-void    *create_philos(t_data *data);
+t_philo    *init_data_philos(t_data *data);
+void    *create_philos(t_data *data, t_philo *data_philo);
 
 //function prototypes - forks
-void    *create_forks(t_data *data);
+pthread_mutex_t *create_forks(t_data *data);
 
 //function prototypes - data
 t_data  *init_data(int argc, char **argv, unsigned int init);

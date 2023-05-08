@@ -9,10 +9,10 @@ int	main(int argc, char **argv)
 
 	init = curr_time();
 	start = curr_time() - init;
-	print_args(argc, argv);
+	//print_args(argc, argv);
 	data = init_data(argc, argv, init);
 	init_data_philos(data);
-	create_philos(data);
+	create_philos(data, (init_data_philos(data)));
 	create_forks(data);
 	usleep(50000);
 	end = curr_time() - init;

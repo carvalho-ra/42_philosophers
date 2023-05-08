@@ -15,19 +15,20 @@
 //data
 typedef struct s_data
 {
-	unsigned long int	initial_time;
-	int	number_of_philosophers;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_times_each_philosopher_must_eat;
+	unsigned int ini_time;
+	int	n_philos;
+	int	t_die;
+	int	t_eat;
+	int	t_sleep;
+	int	n_meals;
 }
 t_data;
 
 typedef struct s_philo
 {
+	unsigned int	birth;
 	int	index;
-	int	time_last_meal;
+	int	t_last_meal;
 	//pointer to right fork
 	//pointer to left fork
 	t_data	*data;
@@ -53,8 +54,10 @@ unsigned long int	curr_time();
 void    *init_data_philos(t_data *data);
 void    *create_philos(t_data *data);
 
-//function prototypes - data
-t_data  *init_data(int argc, char **argv);
+//function prototypes - forks
+void    *create_forks(t_data *data);
 
+//function prototypes - data
+t_data  *init_data(int argc, char **argv, unsigned int init);
 
 #endif

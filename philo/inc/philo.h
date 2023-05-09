@@ -55,7 +55,7 @@ unsigned long int	curr_time();
 
 //function prototypes - philosophers
 t_philo    *init_data_philos(t_data *data);
-void    *create_philos(t_data *data, t_philo *data_philo);
+pthread_t    *create_philos(t_data *data, t_philo *data_philo);
 
 //function prototypes - forks
 pthread_mutex_t *create_forks(t_data *data);

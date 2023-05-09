@@ -19,7 +19,7 @@ t_data  *init_data(int argc, char **argv, unsigned int init)
 }
 
 //create data philosophers (one struct for each philosopher)
-//function receives struct data (all informations from arguments) as argument
+//function receives struct data as argument(all informations from arguments)
 t_philo    *init_data_philos(t_data *data)
 {
     int i;
@@ -58,7 +58,7 @@ t_philo    *init_data_philos(t_data *data)
         printf("data_philo[%i].data->n_philos = %d\n", i, data_philo[i].data->n_philos);
         i++;
     }
-    printf("test after while\n");
+    //return array of data_philos
     return (data_philo);
 }
 
@@ -76,11 +76,10 @@ void    *routine(void *ph)
 }
 
 //create philosophers (threads)
-//can it return the array of threads??
-void    *create_philos(t_data *data, t_philo *data_philo)
+pthread_t   *create_philos(t_data *data, t_philo *data_philo)
 {
     int i;
-    pthread_t tmp;
+    pthread_t *tmp;
 
     //malloc threads
     tmp = malloc(sizeof(pthread_t) * data->n_philos);
@@ -101,7 +100,7 @@ void    *create_philos(t_data *data, t_philo *data_philo)
         pthread_join(data_philo[i].philo, NULL);
         i++;
     }
-    return (0);
+    return (tmp);
 }
 
 //create forks (mutex)

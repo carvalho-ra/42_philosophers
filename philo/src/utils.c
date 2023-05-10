@@ -1,5 +1,13 @@
 #include "../inc/philo.h"
 
+//current time
+unsigned int	curr_time()
+{
+	struct timeval tm;
+	gettimeofday(&tm, NULL);
+	return (tm.tv_sec * 1000 + tm.tv_usec / 1000);
+}
+
 //is digit
 int	ft_isdigit(int nbr)
 {
@@ -40,7 +48,7 @@ int	ft_atoi(const char *str)
     else if (str[count] == '+')
         count++;
     if (str[count] == '-' || str[count] == '+')
-        return (0);
+		return (0);
 	while (ft_isdigit(str[count]) == 1)
 	{
 		result = (result * 10) + (str[count] - '0');
@@ -48,3 +56,4 @@ int	ft_atoi(const char *str)
 	}
 	return (result * sign);
 }
+

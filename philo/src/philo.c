@@ -1,23 +1,33 @@
 #include "../inc/philo.h"
 
-int	main(int argc, char **argv)
+//parse information
+t_info  *parse_args(int ac, char **av)
 {
-	unsigned int	init;
-	unsigned int	start;
-	unsigned int	end;
-	t_data	*data;
+    unsigned int    t_zero;
+    t_info *info;
 
-	init = curr_time();
-	start = curr_time() - init;
-	//print_args(argc, argv);
-	data = init_data(argc, argv, init);
-	init_data_philos(data);
-	create_philos(data, (init_data_philos(data)));
-	create_forks(data);
-	usleep(50000);
-	end = curr_time() - init;
-	printf("start time = %u milisec\n", start);
-	printf("end time = %u milisec\n", end);
-	printf("execution time = %u milisec\n", end - start);
-	return (0);
+    if (validation(ac, av) != 0)
+        return (0);
+    info->ini_time = curr_time();
+    info->n_philos = ft_atoi(av[1]);
+    info->t_die = ft_atoi(av[2]);
+    info->t_eat = ft_atoi(av[3]);
+    info->t_sleep = ft_atoi(av[4]);
+    if (ac == 6)
+        info->n_meals = ft_atoi(av[5]);
+    else
+        info->n_meals = 0;
+    return (info);
+}
+
+int main(int ac, char **av)
+{
+    t_info *info;
+    pthread_mutex_t *forks;
+    int i;
+
+    info = parse_args(ac, av);
+    
+    
+    return (0);
 }

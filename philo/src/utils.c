@@ -5,7 +5,7 @@ unsigned int	curr_time()
 {
 	struct timeval tm;
 	gettimeofday(&tm, NULL);
-	return (tm.tv_sec * 1000 + tm.tv_usec / 1000);
+	return (tm.tv_sec * 1000) + (tm.tv_usec / 1000);
 }
 
 //is digit

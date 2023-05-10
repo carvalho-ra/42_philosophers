@@ -12,7 +12,7 @@
 //data - parsed information
 typedef struct s_info
 {
-	unsigned int	ini_time;
+	unsigned int	t_start;
 	int				n_philos;
 	int				t_die;
 	int				t_eat;
@@ -43,6 +43,9 @@ int	validation(int argc, char **argv);
 void	print_args(int argc, char **argv);
 
 //function prototypes - philosophers
+t_info  *parse(int argc, char **argv);
+t_philo *data_philos(t_info *info);
+
 
 
 #endif

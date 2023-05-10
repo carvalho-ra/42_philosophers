@@ -1,6 +1,7 @@
 NAME = philo
 
-SRCS =	./src/utils.c \
+SRCS =	./src/init.c \
+		./src/utils.c \
 		./src/validation.c \
 		./src/philo.c \
 

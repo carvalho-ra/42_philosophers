@@ -5,6 +5,12 @@ void *routine(void *arg)
     t_philo ph = *(t_philo *)arg;
     
     while (1) {
+        //check death
+        if ((ph.data->ini_time - ph.t_last_meal) > (ph.data->t_eat + ph.data->t_sleep))
+        {
+            printf("Philosopher %d is dead.\n", ph.index);
+        }
+
         // Philosopher thinks
         printf("Philosopher %d is thinking...\n", ph.index);
         
@@ -12,30 +18,20 @@ void *routine(void *arg)
         printf("Philosopher %d is sleeping...\n", ph.index);
         usleep(ph.data->t_sleep);
 
-        // Odd philosopher try to grab left fork
+        // Odd philosopher try to grab forks
         if (ph.index % 2 != 0)
         {
             pthread_mutex_lock(ph.left);
             printf("Philosopher %d took fork %p.\n", ph.index, ph.left);
-        }
-
-        // Even philosopher try to grab right fork
-        if (ph.index % 2 == 0)
-        {
             pthread_mutex_lock(ph.right);
             printf("Philosopher %d took fork %p.\n", ph.index, ph.right);
         }
 
-        // Odd philosopher try to grab right fork
-        if (ph.index % 2 != 0)
+        // Even philosopher try to grab forks
+        if (ph.index % 2 == 0)
         {
             pthread_mutex_lock(ph.right);
             printf("Philosopher %d took fork %p.\n", ph.index, ph.right);
-        }
-
-        // Even philosopher try to grab left fork
-        if (ph.index % 2 == 0)
-        {
             pthread_mutex_lock(ph.left);
             printf("Philosopher %d took fork %p.\n", ph.index, ph.left);
         }

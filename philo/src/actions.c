@@ -33,10 +33,15 @@ void    ph_eat(t_philo *ph)
 void *routine(void *arg)
 {    
     t_philo ph = *(t_philo *)arg;
-    
-    while (1) {
+    while (1)
+    {
+        //death monitor
+        //usar mutex específica para variavel death
+        //que pode ser lida por qualquer thread e alterada pelo monitor
+        if (ph.data->death == 1)
+            break ;
+
         //Philosopher eats
-        //
         ph_eat(&ph);
         
         // Philosopher sleeps
@@ -46,4 +51,5 @@ void *routine(void *arg)
         // Philosopher thinks
         printf("%lu %d is thinking\n", curr_time(&ph), ph.index);
     }
+    return (NULL);
 }

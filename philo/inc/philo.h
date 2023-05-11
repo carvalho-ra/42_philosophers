@@ -9,6 +9,8 @@
 #include <sys/time.h> // gettimeofday
 #include <unistd.h> // write
 
+typedef struct s_philo t_philo;
+
 //parse information
 typedef struct s_data
 {
@@ -19,6 +21,7 @@ typedef struct s_data
 	unsigned long	t_sleep;
 	int		n_meals;
 	int	death;
+	t_philo *ph;
 }
 t_data;
 
@@ -52,7 +55,8 @@ unsigned long	prog_start(void);
 
 //function prototypes - philosophers
 t_philo    *init_data_philos(t_data *data);
-pthread_t    *create_philos(t_data *data, t_philo *data_philo);
+pthread_t    *create_philos(t_data *data, t_philo *ph);
+void   join_threads(t_philo *data_philo);
 
 //function prototypes - forks
 pthread_mutex_t *create_forks(t_data *data);
@@ -63,6 +67,9 @@ t_data  *init_data(int argc, char **argv);
 //function prototypes - routine
 void *routine(void *arg);
 void    ph_eat(t_philo *ph);
+
+void *death_monitor(t_philo *ph);
+
 
 
 #endif

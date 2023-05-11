@@ -57,11 +57,10 @@ t_philo    *init_data_philos(t_data *data)
 
 
 //create philosophers (threads)
-pthread_t   *create_philos(t_data *data, t_philo *data_philo)
+pthread_t   *create_philos(t_data *data, t_philo *ph)
 {
     int i;
     pthread_t *tmp;
-
     //malloc threads
     tmp = malloc(sizeof(pthread_t) * data->n_philos);
     if (!(tmp))
@@ -70,21 +69,23 @@ pthread_t   *create_philos(t_data *data, t_philo *data_philo)
     //initialize thread "philo" declared in the struct data_philo
     while(i < data->n_philos)
     {
-        pthread_create(&data_philo[i].philo, NULL, &routine, &data_philo[i]);
+        pthread_create(&ph[i].philo, NULL, &routine, &ph[i]);
         i++;
     }
+    return (tmp);
+}
+
+void    join_threads(t_philo *data_philo)
+{
+    int i;
     //join in the same function? monitor joins the threads?
     //joins happens in the end of program?
     i = 0;
-    while(i < data->n_philos)
+    while(i < data_philo->data->n_philos)
     {
         pthread_join(data_philo[i].philo, NULL);
         i++;
     }
-    //there was no need to return threads because each one of them 
-    //was assigned to it's respective philosopher by assigning it to 
-    //philosopher struct
-    return (tmp);
 }
 
 //create forks (mutex)
@@ -120,11 +121,14 @@ void *death_monitor(t_philo *ph)
     i = ph->index;
     while (1)
     {
-        if (i = ph->data->n_philos)
+        if (i == ph->data->n_philos)
             i = 1;
-        if (curr_time(ph) - ph[i].t_last_meal >= ph[i].data->t_die)
+        
+        // check if ph.n_meals foi satisfeito 
+        if ((curr_time(ph) - ph[i].t_last_meal) >= ph[i].data->t_die)
         {
             ph->data->death = 1;
+            printf("%lu %d died\n", curr_time(ph), ph->index);
             return (NULL);
         }
         i++;

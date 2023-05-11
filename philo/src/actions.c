@@ -1,51 +1,49 @@
 #include "../inc/philo.h"
 
+void    ph_eat(t_philo *ph)
+{
+    // Odd philosopher try to grab forks
+    if (ph->index % 2 != 0)
+    {
+        pthread_mutex_lock(ph->left);
+        printf("%lu %d has taken a fork\n", curr_time(ph), ph->index);
+        pthread_mutex_lock(ph->right);
+        printf("%lu %d has taken a fork\n", curr_time(ph), ph->index);
+    }
+
+    // Even philosopher try to grab forks
+    if (ph->index % 2 == 0)
+    {
+        pthread_mutex_lock(ph->right);
+        printf("%lu %d has taken a fork\n", curr_time(ph), ph->index);
+        pthread_mutex_lock(ph->left);
+        printf("%lu %d has taken a fork\n", curr_time(ph), ph->index);
+    }
+
+    // Philosopher eats
+    printf("%lu %d is eating\n", curr_time(ph), ph->index);
+    usleep(ph->data->t_eat * 1000);
+    ph->t_last_meal = curr_time(ph);
+    
+    // Philosopher releases forks
+    pthread_mutex_unlock(ph->right);
+    pthread_mutex_unlock(ph->left);
+}
+
 void *routine(void *arg)
 {    
     t_philo ph = *(t_philo *)arg;
     
     while (1) {
-        //check death
-        if ((ph.data->ini_time - ph.t_last_meal) > (ph.data->t_eat + ph.data->t_sleep))
-        {
-            printf("Philosopher %d is dead.\n", ph.index);
-        }
-
-        // Philosopher thinks
-        printf("Philosopher %d is thinking...\n", ph.index);
+        //Philosopher eats
+        //
+        ph_eat(&ph);
         
         // Philosopher sleeps
-        printf("Philosopher %d is sleeping...\n", ph.index);
-        usleep(ph.data->t_sleep);
+        printf("%lu %d is sleeping\n", curr_time(&ph), ph.index);
+        usleep(ph.data->t_sleep * 1000);
 
-        // Odd philosopher try to grab forks
-        if (ph.index % 2 != 0)
-        {
-            pthread_mutex_lock(ph.left);
-            printf("Philosopher %d took fork %p.\n", ph.index, ph.left);
-            pthread_mutex_lock(ph.right);
-            printf("Philosopher %d took fork %p.\n", ph.index, ph.right);
-        }
-
-        // Even philosopher try to grab forks
-        if (ph.index % 2 == 0)
-        {
-            pthread_mutex_lock(ph.right);
-            printf("Philosopher %d took fork %p.\n", ph.index, ph.right);
-            pthread_mutex_lock(ph.left);
-            printf("Philosopher %d took fork %p.\n", ph.index, ph.left);
-        }
-
-        // Philosopher eats
-        printf("Philosopher %d is eating...\n", ph.index);
-        usleep(ph.data->t_eat);
-        ph.t_last_meal = curr_time() - ph.data->ini_time;
-        
-        // Philosopher releases forks
-        pthread_mutex_unlock(ph.right);
-        printf("Philosopher %d released fork %p.\n", ph.index, ph.right);
-        pthread_mutex_unlock(ph.left);
-        printf("Philosopher %d released fork %p.\n", ph.index, ph.left);
-
+        // Philosopher thinks
+        printf("%lu %d is thinking\n", curr_time(&ph), ph.index);
     }
 }

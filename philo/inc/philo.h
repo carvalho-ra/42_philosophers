@@ -12,20 +12,20 @@
 //parse information
 typedef struct s_data
 {
-	unsigned int	ini_time;
-	int				n_philos;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
-	int				n_meals;
+	unsigned long	ini_time;
+	int		n_philos;
+	unsigned long	t_die;
+	unsigned long	t_eat;
+	unsigned long	t_sleep;
+	int		n_meals;
+	int	death;
 }
 t_data;
 
 typedef struct s_philo
 {
-	unsigned int	birth;
 	int	index;
-	int	t_last_meal;
+	unsigned long	t_last_meal;
 	//usar na pthread_mutex (lock/unlock) on routine
 	pthread_mutex_t *right;
 	pthread_mutex_t *left;
@@ -47,7 +47,8 @@ int	validation(int argc, char **argv);
 void	print_args(int argc, char **argv);
 
 //function prototypes - time
-unsigned long int	curr_time();
+unsigned long	curr_time(t_philo *data);
+unsigned long	prog_start(void);
 
 //function prototypes - philosophers
 t_philo    *init_data_philos(t_data *data);
@@ -57,9 +58,11 @@ pthread_t    *create_philos(t_data *data, t_philo *data_philo);
 pthread_mutex_t *create_forks(t_data *data);
 
 //function prototypes - data
-t_data  *init_data(int argc, char **argv, unsigned int init);
+t_data  *init_data(int argc, char **argv);
 
 //function prototypes - routine
 void *routine(void *arg);
+void    ph_eat(t_philo *ph);
+
 
 #endif

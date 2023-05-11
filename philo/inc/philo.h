@@ -9,7 +9,7 @@
 #include <sys/time.h> // gettimeofday
 #include <unistd.h> // write
 
-//data
+//parse information
 typedef struct s_data
 {
 	unsigned int	ini_time;

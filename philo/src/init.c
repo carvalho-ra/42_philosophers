@@ -62,6 +62,7 @@ t_philo    *init_data_philos(t_data *data)
     return (data_philo);
 }
 
+
 //create philosophers (threads)
 pthread_t   *create_philos(t_data *data, t_philo *data_philo)
 {
@@ -87,6 +88,9 @@ pthread_t   *create_philos(t_data *data, t_philo *data_philo)
         pthread_join(data_philo[i].philo, NULL);
         i++;
     }
+    //there was no need to return threads because each one of them 
+    //was assigned to it's respective philosopher by assigning it to 
+    //philosopher struct
     return (tmp);
 }
 

@@ -63,4 +63,6 @@ pthread_mutex_t *create_forks(t_data *data);
 //function prototypes - data
 t_data  *init_data(int argc, char **argv, unsigned int init);
 
+void *routine(void *arg);
+
 #endif

@@ -62,19 +62,6 @@ t_philo    *init_data_philos(t_data *data)
     return (data_philo);
 }
 
-//routine
-void    *routine(void *ph)
-{
-    t_philo *p;
-
-    p = (t_philo *)ph;
-    printf("philosopher %i created\n", p->index);
-    printf("right %p\n", &p->left[0]);
-    printf("left %p\n", &p->right[0]);
-    //usleep(500);
-    return (0);
-}
-
 //create philosophers (threads)
 pthread_t   *create_philos(t_data *data, t_philo *data_philo)
 {

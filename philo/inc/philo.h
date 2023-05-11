@@ -30,7 +30,6 @@ typedef struct s_philo
 	int	index;
 	int	t_last_meal;
 	//usar na pthread_mutex (lock/unlock) on routine
-	//another option is to pass the mutex array and split forks on routine
 	pthread_mutex_t *right;
 	pthread_mutex_t *left;
 	t_data	*data;

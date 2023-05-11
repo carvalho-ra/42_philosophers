@@ -5,10 +5,10 @@ void *routine(void *arg)
     t_philo data_philo = *(t_philo *)arg;
     
     while (1) {
-        // Philosopher think
+        // Philosopher thinks
         printf("Philosopher %d is thinking...\n", data_philo.index);
         
-        // Philosopher sleep
+        // Philosopher sleeps
         printf("Philosopher %d is sleeping...\n", data_philo.index);
         usleep(data_philo.data->t_eat);
 

@@ -10,7 +10,7 @@ void *routine(void *arg)
         
         // Philosopher sleeps
         printf("Philosopher %d is sleeping...\n", data_philo.index);
-        usleep(data_philo.data->t_eat);
+        usleep(data_philo.data->t_sleep);
 
         // Philosopher tries to grab left fork
         pthread_mutex_lock(data_philo.left);

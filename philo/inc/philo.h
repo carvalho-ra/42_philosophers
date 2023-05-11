@@ -2,9 +2,6 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-// variables
-#define INT_MAX 2147483647
-
 //includes
 #include <pthread.h> // threads
 #include <stdio.h> // REMOVE - debug
@@ -62,6 +59,7 @@ pthread_mutex_t *create_forks(t_data *data);
 //function prototypes - data
 t_data  *init_data(int argc, char **argv, unsigned int init);
 
+//function prototypes - routine
 void *routine(void *arg);
 
 #endif

@@ -1,9 +1,11 @@
 NAME = philo
 
-SRCS =	./src/init.c \
+SRCS = ./src/philo.c \
+		./src/init.c \
+		./src/time.c \
 		./src/utils.c \
 		./src/validation.c \
-		./src/philo.c \
+		./src/actions.c \
 
 OBJS = $(SRCS:.c=.o)
 

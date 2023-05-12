@@ -21,16 +21,19 @@ t_info  *parse_pub_info(int argc, char **argv)
 
 //create data philosophers (one struct for each philosopher)
 //function receives struct data as argument(all informations from arguments)
-t_data_philo    *init_data_philos(t_info *info)
+t_data_philo    *priv_data_philos(t_info *info)
 {
     int i;
     //create an array of structs t_philo
     t_data_philo *ph;
+
+    //call function 
     pthread_mutex_t *mutex;
 
     mutex = create_forks(info);
     i = 0;
     //malloc array of structs (one for each philosopher)
+    //that's realy necessary?
     ph = malloc(sizeof(t_data_philo) * info->n_philos);
     if (!(ph))
         return (NULL);
@@ -113,7 +116,7 @@ pthread_mutex_t *create_forks(t_info *info)
     return (mutex);
 }
 
-//make a death monitor
+//death monitor
 //receives array of philosophers threads
 void *death_monitor(t_data_philo *ph)
 {
@@ -125,7 +128,8 @@ void *death_monitor(t_data_philo *ph)
         if (i == ph->info->n_philos)
             i = 1;
         
-        // check if ph.n_meals foi satisfeito 
+        // check if ph.n_meals foi satisfeito
+        //TODO
         if ((curr_time(ph) - ph[i].t_last_meal) >= ph[i].info->t_die)
         {
             ph->info->death = 1;

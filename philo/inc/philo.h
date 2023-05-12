@@ -54,7 +54,7 @@ unsigned long	curr_time(t_data_philo *ph);
 unsigned long	prog_start(void);
 
 //function prototypes - philosophers
-t_data_philo    *init_data_philos(t_info *info);
+t_data_philo    *priv_data_philos(t_info *info);
 void    create_philos(t_info *info, t_data_philo *ph);
 void    join_threads(t_data_philo *ph);
 

@@ -21,44 +21,44 @@ t_info  *parse_pub_info(int argc, char **argv)
 
 //create data philosophers (one struct for each philosopher)
 //function receives struct data as argument(all informations from arguments)
-t_philo    *init_data_philos(t_info *info)
+t_data_philo    *init_data_philos(t_info *info)
 {
     int i;
     //create an array of structs t_philo
-    t_philo *data_philo;
+    t_data_philo *ph;
     pthread_mutex_t *mutex;
 
     mutex = create_forks(info);
     i = 0;
     //malloc array of structs (one for each philosopher)
-    data_philo = malloc(sizeof(t_philo) * info->n_philos);
-    if (!(data_philo))
+    ph = malloc(sizeof(t_data_philo) * info->n_philos);
+    if (!(ph))
         return (NULL);
     while (i < info->n_philos)
     {
         //set forks
-        data_philo[i].left = &mutex[i];
+        ph[i].left = &mutex[i];
         //if i = number of philosophers (n_philos - 1)
         if (i == info->n_philos - 1)
-            data_philo[i].right = &mutex[0];
+            ph[i].right = &mutex[0];
         else
-            data_philo[i].right = &mutex[i + 1];
+            ph[i].right = &mutex[i + 1];
         //set index of philosopher equal to i + 1 (take zero out)
-        data_philo[i].index = i + 1;
+        ph[i].index = i + 1;
         //set last meal to zero
-        data_philo[i].t_last_meal = 0;
+        ph[i].t_last_meal = 0;
         //tell which struct data struct philo will have acsses to
-        data_philo[i].info = info;
+        ph[i].info = info;
         i++;
     }
     //return array of data_philos
-    return (data_philo);
+    return (ph);
 }
 
 
 //create philosophers (threads)
 //insert information in structure - for each philosopher
-void    create_philos(t_info *info, t_philo *ph)
+void    create_philos(t_info *info, t_data_philo *ph)
 {
     int i;
     // pthread_t *tmp;
@@ -76,15 +76,15 @@ void    create_philos(t_info *info, t_philo *ph)
     //return (tmp);
 }
 
-void    join_threads(t_philo *data_philo)
+void    join_threads(t_data_philo *ph)
 {
     int i;
     //join in the same function? monitor joins the threads?
     //joins happens in the end of program?
     i = 0;
-    while(i < data_philo->info->n_philos)
+    while(i < ph->info->n_philos)
     {
-        pthread_join(data_philo[i].philo, NULL);
+        pthread_join(ph[i].philo, NULL);
         i++;
     }
 }
@@ -115,7 +115,7 @@ pthread_mutex_t *create_forks(t_info *info)
 
 //make a death monitor
 //receives array of philosophers threads
-void *death_monitor(t_philo *ph)
+void *death_monitor(t_data_philo *ph)
 {
     int i;
 

@@ -1,6 +1,6 @@
 #include "../inc/philo.h"
 
-void    ph_eat(t_philo *ph)
+void    ph_eat(t_data_philo *ph)
 {
     // Odd philosopher try to grab forks
     if (ph->index % 2 != 0)
@@ -32,7 +32,7 @@ void    ph_eat(t_philo *ph)
 
 void *routine(void *arg)
 {    
-    t_philo ph = *(t_philo *)arg;
+    t_data_philo ph = *(t_data_philo *)arg;
     while (1)
     {
         //death monitor

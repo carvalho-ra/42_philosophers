@@ -1,12 +1,12 @@
 #include "../inc/philo.h"
 
 //current time
-unsigned long	curr_time(t_philo *data)
+unsigned long	curr_time(t_data_philo *ph)
 {
 
 	struct timeval tm;
 	gettimeofday(&tm, NULL);
-	return (((tm.tv_sec * 1000) + (tm.tv_usec / 1000)) - data->info->ini_time);
+	return (((tm.tv_sec * 1000) + (tm.tv_usec / 1000)) - ph->info->ini_time);
 }
 
 //start program

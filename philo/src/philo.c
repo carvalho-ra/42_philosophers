@@ -3,7 +3,7 @@
 int	main(int argc, char **argv)
 {
 	t_info	*info;
-	t_philo *ph;
+	t_data_philo *ph;
 
 	info = parse_pub_info(argc, argv);
 	ph = init_data_philos(info);

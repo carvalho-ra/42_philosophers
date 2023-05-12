@@ -9,7 +9,7 @@
 #include <sys/time.h> // gettimeofday
 #include <unistd.h> // write
 
-typedef struct s_philo t_philo;
+typedef struct s_data_philo t_data_philo;
 
 //parse information
 typedef struct s_info
@@ -21,11 +21,11 @@ typedef struct s_info
 	unsigned long	t_sleep;
 	int		n_meals;
 	int	death;
-	t_philo *ph;
+	t_data_philo *ph;
 }
 t_info;
 
-typedef struct s_philo
+typedef struct s_data_philo
 {
 	int	index;
 	unsigned long	t_last_meal;
@@ -35,7 +35,7 @@ typedef struct s_philo
 	t_info	*info;
 	pthread_t philo;
 } 
-t_philo;
+t_data_philo;
 
 //function prototypes - utils
 int	ft_isdigit(int nbr);
@@ -50,15 +50,13 @@ int	validation(int argc, char **argv);
 void	print_args(int argc, char **argv);
 
 //function prototypes - time
-unsigned long	curr_time(t_philo *data);
+unsigned long	curr_time(t_data_philo *data);
 unsigned long	prog_start(void);
 
 //function prototypes - philosophers
-t_philo    *init_data_philos(t_info *info);
-
-//pthread_t    *create_philos(t_info *info, t_philo *ph);
-void    create_philos(t_info *info, t_philo *ph);
-void   join_threads(t_philo *data_philo);
+t_data_philo    *init_data_philos(t_info *info);
+void    create_philos(t_info *info, t_data_philo *ph);
+void    join_threads(t_data_philo *data_philo);
 
 //function prototypes - forks
 pthread_mutex_t *create_forks(t_info *info);
@@ -69,9 +67,8 @@ t_info  *parse_pub_info(int argc, char **argv);
 
 //function prototypes - routine
 void *routine(void *arg);
-void    ph_eat(t_philo *ph);
-
-void *death_monitor(t_philo *ph);
+void    ph_eat(t_data_philo *ph);
+void *death_monitor(t_data_philo *ph);
 
 
 

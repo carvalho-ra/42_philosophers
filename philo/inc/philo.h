@@ -21,6 +21,7 @@ typedef struct s_info
 	unsigned long	t_sleep;
 	int		n_meals;
 	int	death;
+	pthread_mutex_t	death_mutex;
 	t_data_philo *ph;
 }
 t_info;
@@ -60,14 +61,18 @@ void    join_threads(t_data_philo *ph);
 
 //function prototypes - forks
 pthread_mutex_t *create_forks(t_info *info);
+pthread_mutex_t *create_death_mutex(t_data_philo *ph);
 
 //function prototypes - data
 t_info  *parse_pub_info(int argc, char **argv);
-
 
 //function prototypes - routine
 void *routine(void *arg);
 void    ph_eat(t_data_philo *ph);
 void *death_monitor(t_data_philo *ph);
+
+void print_action(t_data_philo *ph, char *action);
+
+
 
 #endif

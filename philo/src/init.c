@@ -16,6 +16,7 @@ t_info  *parse_pub_info(int argc, char **argv)
     if (argc == 6)
         info->n_meals = ft_atoi(argv[5]);
     info->death = 0;
+    pthread_mutex_init(&info->death_mutex, NULL);
     return (info);
 }
 
@@ -121,22 +122,43 @@ pthread_mutex_t *create_forks(t_info *info)
 void *death_monitor(t_data_philo *ph)
 {
     int i;
-
-    i = ph->index;
+    
+    i = 0;
     while (1)
     {
         if (i == ph->info->n_philos)
-            i = 1;
+            i = 0;
         
         // check if ph.n_meals foi satisfeito
         //TODO
+        
+        //fazer mutex para last meal
+        //declarar na scruct
+        //inicializar qdo inicaliza a struct
+        //usar aqui e na outra funcao que altera o valer eat
+
         if ((curr_time(ph) - ph[i].t_last_meal) >= ph[i].info->t_die)
         {
+            pthread_mutex_lock(&ph->info->death_mutex);
             ph->info->death = 1;
-            printf("%lu %d died\n", curr_time(ph), ph->index);
+            pthread_mutex_unlock(&ph->info->death_mutex);
+
+            printf("%lu %d died\n", curr_time(ph), ph[i].index);
             return (NULL);
         }
         i++;
     }
     return (NULL);
+}
+
+//print
+void print_action(t_data_philo *ph, char *action)
+{
+    pthread_mutex_lock(&ph->info->death_mutex);
+    if (ph->info->death != 1)
+    {
+        printf("%lu %d %s\n", curr_time(ph), ph->index, action);
+        pthread_mutex_unlock(&ph->info->death_mutex);
+    }
+    pthread_mutex_unlock(&ph->info->death_mutex);
 }

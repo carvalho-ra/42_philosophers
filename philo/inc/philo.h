@@ -56,7 +56,8 @@ unsigned long	prog_start(void);
 //function prototypes - philosophers
 t_philo    *init_data_philos(t_info *info);
 
-pthread_t    *create_philos(t_info *info, t_philo *ph);
+//pthread_t    *create_philos(t_info *info, t_philo *ph);
+void    create_philos(t_info *info, t_philo *ph);
 void   join_threads(t_philo *data_philo);
 
 //function prototypes - forks

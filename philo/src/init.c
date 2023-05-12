@@ -57,14 +57,15 @@ t_philo    *init_data_philos(t_info *info)
 
 
 //create philosophers (threads)
-pthread_t   *create_philos(t_info *info, t_philo *ph)
+//insert information in structure - for each philosopher
+void    create_philos(t_info *info, t_philo *ph)
 {
     int i;
-    pthread_t *tmp;
-    //malloc threads XXXXXXX what for????
-    tmp = malloc(sizeof(pthread_t) * info->n_philos);
-    if (!(tmp))
-        return (NULL);
+    // pthread_t *tmp;
+    // //malloc threads XXXXXXX what for????
+    // tmp = malloc(sizeof(pthread_t) * info->n_philos);
+    // if (!(tmp))
+    //     return (NULL);
     i = 0;
     //initialize thread "philo" declared in the struct data_philo
     while(i < info->n_philos)
@@ -72,7 +73,7 @@ pthread_t   *create_philos(t_info *info, t_philo *ph)
         pthread_create(&ph[i].philo, NULL, &routine, &ph[i]);
         i++;
     }
-    return (tmp);
+    //return (tmp);
 }
 
 void    join_threads(t_philo *data_philo)

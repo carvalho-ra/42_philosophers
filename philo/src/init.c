@@ -70,7 +70,7 @@ void    create_philos(t_info *info, t_data_philo *ph)
     //initialize thread "philo" declared in the struct data_philo
     while(i < info->n_philos)
     {
-        pthread_create(&ph[i].philo, NULL, &routine, &ph[i]);
+        pthread_create(&ph[i].th_philo, NULL, &routine, &ph[i]);
         i++;
     }
     //return (tmp);
@@ -84,7 +84,7 @@ void    join_threads(t_data_philo *ph)
     i = 0;
     while(i < ph->info->n_philos)
     {
-        pthread_join(ph[i].philo, NULL);
+        pthread_join(ph[i].th_philo, NULL);
         i++;
     }
 }

@@ -33,7 +33,7 @@ typedef struct s_data_philo
 	pthread_mutex_t *right;
 	pthread_mutex_t *left;
 	t_info	*info;
-	pthread_t philo;
+	pthread_t th_philo;
 } 
 t_data_philo;
 

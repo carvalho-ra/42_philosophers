@@ -17,20 +17,20 @@ t_info  *parse_pub_info(int argc, char **argv)
         info->n_meals = ft_atoi(argv[5]);
     info->death = 0;
     pthread_mutex_init(&info->death_mutex, NULL);
+    pthread_mutex_init(&info->last_meal_mutex, NULL);
     return (info);
 }
 
 //create data philosophers (one struct for each philosopher)
-//function receives struct data as argument(all informations from arguments)
 t_data_philo    *priv_data_philos(t_info *info)
 {
     int i;
     //create an array of structs t_philo
     t_data_philo *ph;
-
-    //call function 
+    //create an array of mutexes
     pthread_mutex_t *mutex;
 
+    //call function to create forks
     mutex = create_forks(info);
     i = 0;
     //malloc array of structs (one for each philosopher)
@@ -51,7 +51,7 @@ t_data_philo    *priv_data_philos(t_info *info)
         ph[i].index = i + 1;
         //set last meal to zero
         ph[i].t_last_meal = 0;
-        //tell which struct data struct philo will have acsses to
+        //tell which struct info struct philo will have acsses to
         ph[i].info = info;
         i++;
     }
@@ -61,23 +61,17 @@ t_data_philo    *priv_data_philos(t_info *info)
 
 
 //create philosophers (threads)
-//insert information in structure - for each philosopher
 void    create_th_philos(t_info *info, t_data_philo *ph)
 {
     int i;
-    // pthread_t *tmp;
-    // //malloc threads XXXXXXX what for????
-    // tmp = malloc(sizeof(pthread_t) * info->n_philos);
-    // if (!(tmp))
-    //     return (NULL);
+    
     i = 0;
-    //initialize thread "philo" declared in the struct data_philo
+    //initialize thread "th_philo" declared in the struct data_philo
     while(i < info->n_philos)
     {
         pthread_create(&ph[i].th_philo, NULL, &routine, &ph[i]);
         i++;
     }
-    //return (tmp);
 }
 
 void    join_threads(t_data_philo *ph)
@@ -94,16 +88,14 @@ void    join_threads(t_data_philo *ph)
 }
 
 //create forks (mutex)
-//create (one fork for each philosopher)
 pthread_mutex_t *create_forks(t_info *info)
 {
-
     //create an array of mutexes
     pthread_mutex_t *mutex;
-
     int i;
 
     //malloc mutexes
+    //is that necessary?
     mutex = malloc(sizeof(pthread_mutex_t) * info->n_philos);
     if(!(mutex))
         return (NULL);
@@ -118,7 +110,6 @@ pthread_mutex_t *create_forks(t_info *info)
 }
 
 //death monitor
-//receives array of philosophers threads
 void *death_monitor(t_data_philo *ph)
 {
     int i;
@@ -132,21 +123,25 @@ void *death_monitor(t_data_philo *ph)
         // check if ph.n_meals foi satisfeito
         //TODO
         
-        //fazer mutex para last meal
-        //declarar na scruct
-        //inicializar qdo inicaliza a struct
-        //usar aqui e na outra funcao que altera o valer eat
-
+        //lock last meal mutex
+        pthread_mutex_lock(&ph->info->last_meal_mutex);
+        //read variable t_last_meal
         if ((curr_time(ph) - ph[i].t_last_meal) >= ph[i].info->t_die)
         {
+            //unlock last meal mutex
+            pthread_mutex_unlock(&ph->info->last_meal_mutex);
             pthread_mutex_lock(&ph->info->death_mutex);
             ph->info->death = 1;
             pthread_mutex_unlock(&ph->info->death_mutex);
-
+            //print_action has mutex inside of it
+            //but is not workin because it has an if death != 1
+            //in this case death == 1
+            //print_action(ph, "died");
             printf("%lu %d died\n", curr_time(ph), ph[i].index);
             return (NULL);
         }
         i++;
+        pthread_mutex_unlock(&ph->info->last_meal_mutex);
     }
     return (NULL);
 }

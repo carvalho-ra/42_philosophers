@@ -61,7 +61,7 @@ t_data_philo    *priv_data_philos(t_info *info)
 
 //create philosophers (threads)
 //insert information in structure - for each philosopher
-void    create_philos(t_info *info, t_data_philo *ph)
+void    create_th_philos(t_info *info, t_data_philo *ph)
 {
     int i;
     // pthread_t *tmp;

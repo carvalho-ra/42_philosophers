@@ -7,7 +7,7 @@ int	main(int argc, char **argv)
 
 	info = parse_pub_info(argc, argv);
 	ph = priv_data_philos(info);
-	create_philos(info, ph);
+	create_th_philos(info, ph);
 	death_monitor(ph);
 	join_threads(ph);
 	return (0);

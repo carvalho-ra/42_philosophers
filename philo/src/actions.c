@@ -22,7 +22,7 @@ void    ph_eat(t_philo *ph)
 
     // Philosopher eats
     printf("%lu %d is eating\n", curr_time(ph), ph->index);
-    usleep(ph->data->t_eat * 1000);
+    usleep(ph->info->t_eat * 1000);
     ph->t_last_meal = curr_time(ph);
     
     // Philosopher releases forks
@@ -38,7 +38,7 @@ void *routine(void *arg)
         //death monitor
         //usar mutex específica para variavel death
         //que pode ser lida por qualquer thread e alterada pelo monitor
-        if (ph.data->death == 1)
+        if (ph.info->death == 1)
             break ;
 
         //Philosopher eats
@@ -46,7 +46,7 @@ void *routine(void *arg)
         
         // Philosopher sleeps
         printf("%lu %d is sleeping\n", curr_time(&ph), ph.index);
-        usleep(ph.data->t_sleep * 1000);
+        usleep(ph.info->t_sleep * 1000);
 
         // Philosopher thinks
         printf("%lu %d is thinking\n", curr_time(&ph), ph.index);

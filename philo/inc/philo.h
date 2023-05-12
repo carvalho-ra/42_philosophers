@@ -12,7 +12,7 @@
 typedef struct s_philo t_philo;
 
 //parse information
-typedef struct s_data
+typedef struct s_info
 {
 	unsigned long	ini_time;
 	int		n_philos;
@@ -23,7 +23,7 @@ typedef struct s_data
 	int	death;
 	t_philo *ph;
 }
-t_data;
+t_info;
 
 typedef struct s_philo
 {
@@ -32,7 +32,7 @@ typedef struct s_philo
 	//usar na pthread_mutex (lock/unlock) on routine
 	pthread_mutex_t *right;
 	pthread_mutex_t *left;
-	t_data	*data;
+	t_info	*info;
 	pthread_t philo;
 } 
 t_philo;
@@ -54,15 +54,17 @@ unsigned long	curr_time(t_philo *data);
 unsigned long	prog_start(void);
 
 //function prototypes - philosophers
-t_philo    *init_data_philos(t_data *data);
-pthread_t    *create_philos(t_data *data, t_philo *ph);
+t_philo    *init_data_philos(t_info *info);
+
+pthread_t    *create_philos(t_info *info, t_philo *ph);
 void   join_threads(t_philo *data_philo);
 
 //function prototypes - forks
-pthread_mutex_t *create_forks(t_data *data);
+pthread_mutex_t *create_forks(t_info *info);
 
 //function prototypes - data
-t_data  *init_data(int argc, char **argv);
+t_info  *parse_pub_info(int argc, char **argv);
+
 
 //function prototypes - routine
 void *routine(void *arg);

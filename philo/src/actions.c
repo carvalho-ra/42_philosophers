@@ -33,33 +33,32 @@ void    ph_eat(t_data_philo *ph)
 }
 
 void *routine(void *arg)
-{    
-    t_data_philo ph = *(t_data_philo *)arg;
+{
+    //aqui estava com erro
+    //quando passava o cast para dentro de uma nova struct ph e não para um *ph
+    t_data_philo *ph = (t_data_philo *)arg;
     while (1)
     {
         //usar mutex específica para variavel death
         //que pode ser lida por qualquer thread e alterada pelo monitor
         //lock mutex death_mutex
-        pthread_mutex_lock(&ph.info->death_mutex);
-        //read variable death_mutex
-        if (ph.info->death == 1)
+        pthread_mutex_lock(&ph->info->death_mutex);
+        //read variable death
+        if (ph->info->death == 1)
         {
             //unlock mutex death_mutex
-            pthread_mutex_unlock(&ph.info->death_mutex);
+            pthread_mutex_unlock(&ph->info->death_mutex);
             break ;
         }
         //unlock mutex death_mutex
-        pthread_mutex_unlock(&ph.info->death_mutex);
-
+        pthread_mutex_unlock(&ph->info->death_mutex);
         //Philosopher eats
-        ph_eat(&ph);
-        
+        ph_eat(ph);
         // Philosopher sleeps
-        print_action(&ph, "is sleeping");
-        usleep(ph.info->t_sleep * 1000);
-
+        print_action(ph, "is sleeping");
+        usleep(ph->info->t_sleep * 1000);
         // Philosopher thinks
-        print_action(&ph, "is thinking");
+        print_action(ph, "is thinking");
     }
     return (NULL);
 }
@@ -72,15 +71,11 @@ void *death_monitor(t_data_philo *ph)
     i = 0;
     while (1)
     {
-        if (i == ph->info->n_philos)
+        if (i == ph[i].info->n_philos - 1)
             i = 0;
         
         // check if ph.n_meals foi satisfeito
-        //TODO
-        // if (ph->info->n_meals > 0)
-        // {
-            
-        // }
+        //TODO faz uma variavel que conta quantas vezes voce ta comendo x 
         
         //lock last meal mutex
         pthread_mutex_lock(&ph->info->last_meal_mutex);
@@ -88,15 +83,16 @@ void *death_monitor(t_data_philo *ph)
         if ((curr_time(ph) - ph[i].t_last_meal) >= ph[i].info->t_die)
         {
             //unlock last meal mutex
-            pthread_mutex_unlock(&ph->info->last_meal_mutex);
-            pthread_mutex_lock(&ph->info->death_mutex);
-            ph->info->death = 1;
-            pthread_mutex_unlock(&ph->info->death_mutex);
+            pthread_mutex_unlock(&ph[i].info->last_meal_mutex);
+            pthread_mutex_lock(&ph[i].info->death_mutex);
+            ph[i].info->death = 1;
+            pthread_mutex_unlock(&ph[i].info->death_mutex);
             //print_action has mutex inside of it
             //but is not workin because it has an if death != 1
             //in this case death == 1
-            //print_action(ph, "died");
-            printf("%lu %d died\n", curr_time(ph), ph[i].index);
+            //had to change print_action function
+            print_action(&ph[i], "died");
+            //printf("%lu %d died\n", curr_time(ph), ph[i].index);
             return (NULL);
         }
         i++;
@@ -105,11 +101,12 @@ void *death_monitor(t_data_philo *ph)
     return (NULL);
 }
 
-//print
+//print action
 void print_action(t_data_philo *ph, char *action)
 {
     pthread_mutex_lock(&ph->info->death_mutex);
-    if (ph->info->death != 1)
+    //had to change to include death print
+    if (ph->info->death != 1 || (ph->info->death == 1 && ft_strlen(action) == 4))
     {
         printf("%lu %d %s\n", curr_time(ph), ph->index, action);
         pthread_mutex_unlock(&ph->info->death_mutex);

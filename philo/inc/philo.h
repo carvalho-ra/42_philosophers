@@ -69,5 +69,5 @@ void			*routine(void *arg);
 void			ph_eat(t_data_philo *ph);
 void			*death_monitor(t_data_philo *ph);
 void			print_action(t_data_philo *ph, char *action);
-
+void	monitor2(t_info *info);
 #endif

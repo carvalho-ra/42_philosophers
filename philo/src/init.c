@@ -24,7 +24,7 @@ t_data_philo    *priv_data_philos(t_info *info)
 {
     int i;
     //create an array of structs t_philo
-    t_data_philo *ph;
+	t_data_philo *ph;
     //create an array of mutexes
     pthread_mutex_t *mutex;
 
@@ -34,8 +34,8 @@ t_data_philo    *priv_data_philos(t_info *info)
     //malloc array of structs (one for each philosopher)
     //that's realy necessary?
     ph = malloc(sizeof(t_data_philo) * info->n_philos);
-    if (!(ph))
-        return (NULL);
+	if (!ph)
+		return NULL;
     while (i < info->n_philos)
     {
         //set forks
@@ -54,11 +54,9 @@ t_data_philo    *priv_data_philos(t_info *info)
         i++;
     }
     //return array of data_philos
-    return (ph);
+	return (ph);
 }
 
-
-//create philosophers (threads)
 void    create_th_philos(t_info *info, t_data_philo *ph)
 {
     int i;
@@ -71,7 +69,6 @@ void    create_th_philos(t_info *info, t_data_philo *ph)
         i++;
     }
 }
-
 void    join_threads(t_data_philo *ph)
 {
     int i;

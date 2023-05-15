@@ -3,8 +3,6 @@
 //init data (struct data)
 t_info  *parse_pub_info(int argc, char **argv)
 {
-    if (validation(argc, argv) == 1)
-        return (0);
     t_info *info;
     
     info = malloc(sizeof(t_info));
@@ -107,53 +105,4 @@ pthread_mutex_t *create_forks(t_info *info)
         i++;
     }
     return (mutex);
-}
-
-//death monitor
-void *death_monitor(t_data_philo *ph)
-{
-    int i;
-    
-    i = 0;
-    while (1)
-    {
-        if (i == ph->info->n_philos)
-            i = 0;
-        
-        // check if ph.n_meals foi satisfeito
-        //TODO
-        
-        //lock last meal mutex
-        pthread_mutex_lock(&ph->info->last_meal_mutex);
-        //read variable t_last_meal
-        if ((curr_time(ph) - ph[i].t_last_meal) >= ph[i].info->t_die)
-        {
-            //unlock last meal mutex
-            pthread_mutex_unlock(&ph->info->last_meal_mutex);
-            pthread_mutex_lock(&ph->info->death_mutex);
-            ph->info->death = 1;
-            pthread_mutex_unlock(&ph->info->death_mutex);
-            //print_action has mutex inside of it
-            //but is not workin because it has an if death != 1
-            //in this case death == 1
-            //print_action(ph, "died");
-            printf("%lu %d died\n", curr_time(ph), ph[i].index);
-            return (NULL);
-        }
-        i++;
-        pthread_mutex_unlock(&ph->info->last_meal_mutex);
-    }
-    return (NULL);
-}
-
-//print
-void print_action(t_data_philo *ph, char *action)
-{
-    pthread_mutex_lock(&ph->info->death_mutex);
-    if (ph->info->death != 1)
-    {
-        printf("%lu %d %s\n", curr_time(ph), ph->index, action);
-        pthread_mutex_unlock(&ph->info->death_mutex);
-    }
-    pthread_mutex_unlock(&ph->info->death_mutex);
 }

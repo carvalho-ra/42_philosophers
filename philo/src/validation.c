@@ -16,8 +16,8 @@ int	check_empty(int argc, char **argv)
 			{
 				//remove error message
 				write(2, "Error - empty argument\n", 23);
+				return (1);
 			}
-			return (1);
 		}
 		i++;
 	}

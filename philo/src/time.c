@@ -18,7 +18,7 @@ unsigned long	prog_start(void)
 }
 
 //smart sleep
-void	smart_sleep(unsigned int time)
+void	smart_sleep(unsigned int time, t_data_philo *ph)
 {
 	unsigned long	tm1;
 	unsigned long	tm2;
@@ -30,10 +30,21 @@ void	smart_sleep(unsigned int time)
 	tm1 = (first.tv_sec * 1000) + (first.tv_usec / 1000);
 	while (1)
 	{
+		pthread_mutex_lock(&ph->info->death_mutex);
+        // read variable death
+        if (ph->info->death == 1)
+        {
+            //unlock mutex death_mutex
+            pthread_mutex_unlock(&ph->info->death_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&ph->info->death_mutex);
+
 		gettimeofday(&second, NULL);
 		tm2 = (second.tv_sec * 1000) + (second.tv_usec / 1000);
 		if (tm2 - tm1 >= time)
 			break;
 		usleep(100);
 	}
+	//printf("time = %lu\n", tm2 - tm1);
 }

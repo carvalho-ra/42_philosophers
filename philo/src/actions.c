@@ -20,17 +20,20 @@ void    ph_eat(t_data_philo *ph)
     }
     // Philosopher eats
     print_action(ph, "is eating");
-
-    //trying to use smart sleep
-    //usleep(ph->info->t_eat * 1000);
-    smart_sleep(ph->info->t_eat);
-
+    
     //lock t_last_meal variable
     pthread_mutex_lock(&ph->info->last_meal_mutex);
     //update - t_last_meal variable
     ph->t_last_meal = curr_time(ph);
     //unlock t_last_meal variable
     pthread_mutex_unlock(&ph->info->last_meal_mutex);
+    
+
+    //trying to use smart sleep
+    //usleep(ph->info->t_eat * 1000);
+    smart_sleep(ph->info->t_eat, ph);
+
+
     // Philosopher releases forks
     pthread_mutex_unlock(ph->right);
     pthread_mutex_unlock(ph->left);
@@ -58,15 +61,18 @@ void *routine(void *arg)
         pthread_mutex_unlock(&ph->info->death_mutex);
         //Philosopher eats
         ph_eat(ph);
+
         // Philosopher sleeps
         print_action(ph, "is sleeping");
-
+        
         //trying to use smart sleep
         //usleep(ph->info->t_sleep * 1000);
-        smart_sleep(ph->info->t_sleep);
+        smart_sleep(ph->info->t_sleep, ph);
 
         // Philosopher thinks
         print_action(ph, "is thinking");
+        //Tawan's help to avoid death
+        usleep(100);
     }
     return (NULL);
 }
@@ -105,6 +111,7 @@ void *death_monitor(t_data_philo *ph)
         }
         i++;
         pthread_mutex_unlock(&ph->info->last_meal_mutex);
+        usleep(100);
     }
     return (NULL);
 }

@@ -12,5 +12,11 @@ int	main(int argc, char **argv)
 	create_th_philos(info, ph);
 	death_monitor(ph);
 	join_threads(ph);
+	pthread_mutex_destroy(&info->death_mutex);
+	pthread_mutex_destroy(&info->last_meal_mutex);
+	pthread_mutex_destroy(ph[0].left);
+	free(ph);
+	free(ph[0].left);
+	free(info);
 	return (0);
 }

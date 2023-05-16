@@ -1,34 +1,49 @@
-#include "philo.h"
+#include <stdio.h>
+#include <sys/time.h>
+#include <unistd.h>
 
-void	*routine(void *arg)
+// int main()
+// {
+// 	struct timeval jorgin;
+// 	gettimeofday(&jorgin, NULL);
+
+// 	long long	oi, cris, mv;
+
+// 	oi = jorgin.tv_sec * 1000 + jorgin.tv_usec / 1000;
+// 	printf("oi -> %lld\n", oi);
+
+// 	while(1)
+// 	{
+// 		if(cris >= 10 * 1000)
+// 			break ;
+// 		struct timeval ro;
+// 		gettimeofday(&ro, NULL);
+// 		mv = ro.tv_sec * 1000 + ro.tv_usec / 1000;
+// 		cris = mv - oi; 
+// 		printf("cris ->%lld\n", cris);
+// 		usleep(100);
+// 	}
+// 	printf("cris -> %lld\ndeu green\n", cris);
+// }
+
+//smart time
+int	main(void)
 {
-	printf("test\n");
-	return (0);
-}
+	unsigned long	tm1;
+	unsigned long	tm2;
 
-int	main(int ac, char **av)
-{
-	int i;
+	struct timeval first;
+	struct timeval second;
 
-	if (ac == 5 || ac == 6)
+	gettimeofday(&first, NULL);
+	tm1 = (first.tv_sec * 1000) + (first.tv_usec / 1000);
+	while (1)
 	{
-		t_philo *nbrs;
-		t_time  *times;
-
-		nbrs->number_of_philosophers = ft_atoi(av[1]);
-		times->time_to_die = ft_atoi(av[2]);
-		times->time_to_eat = ft_atoi(av[3]);
-		times->time_to_sleep = ft_atoi(av[4]);
-		nbrs->number_of_times_each_philosopher_must_eat = ft_atoi(av[4]);
-
-		pthread_t	philosophers[nbrs->number_of_philosophers];
-	
-
-		while (i < nbrs->number_of_philosophers)
-		{
-			pthread_create(&philosophers, NULL, &routine, NULL);
-			pthread_join(philosophers, NULL);
-		}
+		gettimeofday(&second, NULL);
+		tm2 = (second.tv_sec * 1000) + (second.tv_usec / 1000);
+		if (tm2 - tm1 >= 10 * 1000)
+			break;
+		usleep(100);
 	}
-	return (0);
+	printf("time = %lu\n", tm2 - tm1);
 }

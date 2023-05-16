@@ -51,6 +51,7 @@ void			print_args(int argc, char **argv);
 //function prototypes - time
 unsigned long	curr_time(t_data_philo *ph);
 unsigned long	prog_start(void);
+void	smart_sleep(unsigned int time);
 
 //function prototypes - philosophers
 t_data_philo	*priv_data_philos(t_info *info);
@@ -69,5 +70,5 @@ void			*routine(void *arg);
 void			ph_eat(t_data_philo *ph);
 void			*death_monitor(t_data_philo *ph);
 void			print_action(t_data_philo *ph, char *action);
-void	monitor2(t_info *info);
+
 #endif

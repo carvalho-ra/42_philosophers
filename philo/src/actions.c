@@ -20,7 +20,11 @@ void    ph_eat(t_data_philo *ph)
     }
     // Philosopher eats
     print_action(ph, "is eating");
-    usleep(ph->info->t_eat * 1000);
+
+    //trying to use smart sleep
+    //usleep(ph->info->t_eat * 1000);
+    smart_sleep(ph->info->t_eat);
+
     //lock t_last_meal variable
     pthread_mutex_lock(&ph->info->last_meal_mutex);
     //update - t_last_meal variable
@@ -56,7 +60,11 @@ void *routine(void *arg)
         ph_eat(ph);
         // Philosopher sleeps
         print_action(ph, "is sleeping");
-        usleep(ph->info->t_sleep * 1000);
+
+        //trying to use smart sleep
+        //usleep(ph->info->t_sleep * 1000);
+        smart_sleep(ph->info->t_sleep);
+
         // Philosopher thinks
         print_action(ph, "is thinking");
     }

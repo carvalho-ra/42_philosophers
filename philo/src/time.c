@@ -17,7 +17,7 @@ unsigned long	prog_start(void)
 	return ((tm.tv_sec * 1000) + (tm.tv_usec / 1000));
 }
 
-//smart time
+//smart sleep
 void	smart_sleep(unsigned int time)
 {
 	unsigned long	tm1;

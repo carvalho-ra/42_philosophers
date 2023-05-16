@@ -16,6 +16,10 @@ t_info  *parse_pub_info(int argc, char **argv)
     info->death = 0;
     pthread_mutex_init(&info->death_mutex, NULL);
     pthread_mutex_init(&info->last_meal_mutex, NULL);
+    
+    //fix number of meals
+    pthread_mutex_init(&info->n_meals_mutex, NULL);
+    
     return (info);
 }
 
@@ -49,6 +53,10 @@ t_data_philo    *priv_data_philos(t_info *info)
         ph[i].index = i + 1;
         //set last meal to zero
         ph[i].t_last_meal = 0;
+        
+        //fix number of meals
+        ph[i].meals = 0;
+
         //tell which struct info struct philo will have acsses to
         ph[i].info = info;
         i++;

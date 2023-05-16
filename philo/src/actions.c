@@ -28,6 +28,10 @@ void    ph_eat(t_data_philo *ph)
     //unlock t_last_meal variable
     pthread_mutex_unlock(&ph->info->last_meal_mutex);
     
+    //fix number of meals
+    pthread_mutex_lock(&ph->info->n_meals_mutex);
+    ph->meals++;
+    pthread_mutex_unlock(&ph->info->n_meals_mutex);
 
     //trying to use smart sleep
     //usleep(ph->info->t_eat * 1000);
@@ -59,6 +63,16 @@ void *routine(void *arg)
         }
         //unlock mutex death_mutex
         pthread_mutex_unlock(&ph->info->death_mutex);
+        
+        // check if ph.n_meals foi satisfeito
+        pthread_mutex_lock(&ph->info->n_meals_mutex);
+        if (ph->info->n_meals != 0 && ph->meals == ph->info->n_meals)
+        {
+            pthread_mutex_unlock(&ph->info->n_meals_mutex);
+            break ;
+        }
+        pthread_mutex_unlock(&ph->info->n_meals_mutex);
+
         //Philosopher eats
         ph_eat(ph);
 
@@ -89,8 +103,15 @@ void *death_monitor(t_data_philo *ph)
             i = 0;
         
         // check if ph.n_meals foi satisfeito
-        //TODO faz uma variavel que conta quantas vezes voce ta comendo x 
+        pthread_mutex_lock(&ph->info->n_meals_mutex);
+        if (ph->info->n_meals != 0 && ph->meals == ph->info->n_meals)
+        {
+            pthread_mutex_unlock(&ph->info->n_meals_mutex);
+            break ;
+        }
+        pthread_mutex_unlock(&ph->info->n_meals_mutex);
         
+
         //lock last meal mutex
         pthread_mutex_lock(&ph->info->last_meal_mutex);
         //read variable t_last_meal
@@ -101,6 +122,8 @@ void *death_monitor(t_data_philo *ph)
             pthread_mutex_lock(&ph[i].info->death_mutex);
             ph[i].info->death = 1;
             pthread_mutex_unlock(&ph[i].info->death_mutex);
+
+
             //print_action has mutex inside of it
             //but is not workin because it has an if death != 1
             //in this case death == 1

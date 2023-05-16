@@ -22,6 +22,7 @@ typedef struct s_info
 	int				death;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	last_meal_mutex;
+	pthread_mutex_t n_meals_mutex;
 	t_data_philo	*ph;
 }	t_info;
 
@@ -29,6 +30,7 @@ typedef struct s_info
 typedef struct s_data_philo
 {
 	int				index;
+	int				meals;
 	unsigned long	t_last_meal;
 	pthread_mutex_t	*right;
 	pthread_mutex_t	*left;

@@ -24,6 +24,27 @@ int	check_empty(int argc, char **argv)
 	return (0);
 }
 
+// //null argument
+// int	check_null(int argc, char **argv)
+// {
+// 	int	i;
+
+// 	i = 1;
+// 	if (!(argv[i]))
+// 		return (1);
+// 	while (i < argc)
+// 	{
+// 		if (ft_atoi(argv[i]) == 0)
+// 		{
+// 			//remove error message
+// 			write(2, "Error - null argument\n", 22);
+// 			return (1);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
 //has char
 int	check_char(int argc, char **argv)
 {
@@ -67,10 +88,11 @@ int	check_max_int(int argc, char **argv)
 			write(2, "Error - argument exceed max int\n", 32);
 			return (1);
 		}
-		if (ft_atoi(argv[i]) < 0)
+		//changed because of segfault on zero philosophers <= 0
+		if (ft_atoi(argv[i]) <= 0)
 		{
 			//remove error message
-			write(2, "Error - argument has negative number\n", 37);
+			write(2, "Error - argument has negative number or is null\n", 48);
 			return (1);
 		}
 		i++;

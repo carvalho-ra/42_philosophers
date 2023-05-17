@@ -1,5 +1,13 @@
 #include "../inc/philo.h"
 
+//start program
+unsigned long	prog_start(void)
+{
+	struct timeval tm;
+	gettimeofday(&tm, NULL);
+	return ((tm.tv_sec * 1000) + (tm.tv_usec / 1000));
+}
+
 //current time
 unsigned long	curr_time(t_data_philo *ph)
 {
@@ -7,14 +15,6 @@ unsigned long	curr_time(t_data_philo *ph)
 	struct timeval tm;
 	gettimeofday(&tm, NULL);
 	return (((tm.tv_sec * 1000) + (tm.tv_usec / 1000)) - ph->info->ini_time);
-}
-
-//start program
-unsigned long	prog_start(void)
-{
-	struct timeval tm;
-	gettimeofday(&tm, NULL);
-	return ((tm.tv_sec * 1000) + (tm.tv_usec / 1000));
 }
 
 //smart sleep
@@ -31,20 +31,16 @@ void	smart_sleep(unsigned int time, t_data_philo *ph)
 	while (1)
 	{
 		pthread_mutex_lock(&ph->info->death_mutex);
-		// read variable death
 		if (ph->info->death == 1)
 		{
-			//unlock mutex death_mutex
 			pthread_mutex_unlock(&ph->info->death_mutex);
 			break ;
 		}
 		pthread_mutex_unlock(&ph->info->death_mutex);
-
 		gettimeofday(&second, NULL);
 		tm2 = (second.tv_sec * 1000) + (second.tv_usec / 1000);
 		if (tm2 - tm1 >= time)
 			break;
 		usleep(100);
 	}
-	//printf("time = %lu\n", tm2 - tm1);
 }

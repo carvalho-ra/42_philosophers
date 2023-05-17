@@ -81,14 +81,20 @@ void *routine(void *arg)
         print_action(ph, "is sleeping");
         
         //trying to use smart sleep
-        usleep(ph->info->t_sleep * 1000);
-        //smart_sleep(ph->info->t_sleep, ph);
+        // pthread_mutex_lock(&ph->info->death_mutex);
+		// if (ph->info->death == 1)
+		// {
+		// 	pthread_mutex_unlock(&ph->info->death_mutex);
+		// 	break ;
+		// }
+        // usleep(ph->info->t_sleep * 1000);
+        smart_sleep(ph->info->t_sleep, ph);
 
         // Philosopher thinks
         print_action(ph, "is thinking");
         
         //Tawan's help to avoid death
-        //usleep(100);
+        usleep(100);
     }
     return (NULL);
 }

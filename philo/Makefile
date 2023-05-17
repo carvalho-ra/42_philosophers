@@ -6,6 +6,7 @@ SRCS = ./src/philo.c \
 		./src/utils.c \
 		./src/validation.c \
 		./src/actions.c \
+		./src/monitor.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcarvalh <rcarvalh@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/17 11:43:43 by rcarvalh          #+#    #+#             */
+/*   Updated: 2023/05/17 11:43:44 by rcarvalh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philo.h"
 
-//is digit
 int	ft_isdigit(int nbr)
 {
 	if (nbr < '0' || nbr > '9')
@@ -9,7 +20,6 @@ int	ft_isdigit(int nbr)
 		return (1);
 }
 
-//ft_strlen
 int	ft_strlen(char *s)
 {
 	int	i;
@@ -20,7 +30,6 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-//ft_atoi
 int	ft_atoi(const char *str)
 {
 	int		sign;

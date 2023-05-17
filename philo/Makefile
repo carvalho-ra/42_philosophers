@@ -11,7 +11,6 @@ SRCS = ./src/philo.c \
 OBJS = $(SRCS:.c=.o)
 
 CC = cc -Wall -Wextra -Werror
-# -fsanitize=address
 
 all: $(NAME)
 

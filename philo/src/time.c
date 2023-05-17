@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcarvalh <rcarvalh@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/17 11:44:59 by rcarvalh          #+#    #+#             */
+/*   Updated: 2023/05/17 11:45:00 by rcarvalh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philo.h"
 
-//start program
 unsigned long	prog_start(void)
 {
 	struct timeval tm;
@@ -8,7 +19,6 @@ unsigned long	prog_start(void)
 	return ((tm.tv_sec * 1000) + (tm.tv_usec / 1000));
 }
 
-//current time
 unsigned long	curr_time(t_data_philo *ph)
 {
 
@@ -17,7 +27,6 @@ unsigned long	curr_time(t_data_philo *ph)
 	return (((tm.tv_sec * 1000) + (tm.tv_usec / 1000)) - ph->info->ini_time);
 }
 
-//smart sleep
 void	smart_sleep(unsigned int time, t_data_philo *ph)
 {
 	unsigned long	tm1;

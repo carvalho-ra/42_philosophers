@@ -31,11 +31,11 @@ void	smart_sleep(unsigned int time, t_data_philo *ph)
 	while (1)
 	{
 		pthread_mutex_lock(&ph->info->death_mutex);
-        // read variable death
-        if (ph->info->death == 1)
-        {
-            //unlock mutex death_mutex
-            pthread_mutex_unlock(&ph->info->death_mutex);
+		// read variable death
+		if (ph->info->death == 1)
+		{
+			//unlock mutex death_mutex
+			pthread_mutex_unlock(&ph->info->death_mutex);
 			break ;
 		}
 		pthread_mutex_unlock(&ph->info->death_mutex);

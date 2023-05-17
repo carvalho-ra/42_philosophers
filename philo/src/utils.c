@@ -37,9 +37,9 @@ int	ft_atoi(const char *str)
 		sign = -sign;
 		count++;
 	}
-    else if (str[count] == '+')
-        count++;
-    if (str[count] == '-' || str[count] == '+')
+	else if (str[count] == '+')
+		count++;
+	if (str[count] == '-' || str[count] == '+')
 		return (0);
 	while (ft_isdigit(str[count]) == 1)
 	{

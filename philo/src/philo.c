@@ -5,7 +5,7 @@ int	main(int argc, char **argv)
 	t_info	*info;
 	t_data_philo *ph;
 
-    if (validation(argc, argv) == 1)
+	if (validation(argc, argv) == 1)
 		return (0);
 	info = parse_pub_info(argc, argv);
 	//fix mutex initialization

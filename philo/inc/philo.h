@@ -20,6 +20,7 @@ typedef struct s_info
 	unsigned long	t_sleep;
 	int				n_meals;
 	int				death;
+	pthread_mutex_t *mutex;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	last_meal_mutex;
 	pthread_mutex_t n_meals_mutex;

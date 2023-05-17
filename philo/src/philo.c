@@ -6,7 +6,7 @@ int	main(int argc, char **argv)
 	t_data_philo *ph;
 
     if (validation(argc, argv) == 1)
-        return (0);
+		return (0);
 	info = parse_pub_info(argc, argv);
 	//fix mutex initialization
 	//mutex = create_forks(info);

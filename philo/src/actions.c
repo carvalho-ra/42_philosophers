@@ -146,8 +146,8 @@ void print_action(t_data_philo *ph, char *action)
     //had to change to include death print
     if (ph->info->death != 1 || (ph->info->death == 1 && ft_strlen(action) == 4))
     {
+        //pthread_mutex_unlock(&ph->info->death_mutex);
         printf("%lu %d %s\n", curr_time(ph), ph->index, action);
-        pthread_mutex_unlock(&ph->info->death_mutex);
     }
     pthread_mutex_unlock(&ph->info->death_mutex);
 }

@@ -10,8 +10,7 @@ SRCS = ./src/philo.c \
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc -Wall -Wextra -Werror 
-# CC = cc -Wall -Wextra -Werror -fsanitize=thread
+CC = cc -Wall -Wextra -Werror
 
 all: $(NAME)
 

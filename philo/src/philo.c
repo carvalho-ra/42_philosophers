@@ -6,7 +6,7 @@
 /*   By: rcarvalh <rcarvalh@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:20:10 by rcarvalh          #+#    #+#             */
-/*   Updated: 2023/05/17 16:44:46 by rcarvalh         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:59:32 by rcarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv)
 	if (info->n_philos == 1)
 	{
 		one_philo(info);
+		free(info);
 		return (0);
 	}
 	ph = priv_data_philos(info);

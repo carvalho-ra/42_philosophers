@@ -6,7 +6,7 @@
 /*   By: rcarvalh <rcarvalh@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:40:52 by rcarvalh          #+#    #+#             */
-/*   Updated: 2023/05/17 14:41:12 by rcarvalh         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:07:36 by rcarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*death_monitor(t_data_philo *ph)
 		}
 		pthread_mutex_unlock(&ph->info->last_meal_mutex);
 		usleep(100);
-		i++;
+		i++; 
 	}
 	return (NULL);
 }

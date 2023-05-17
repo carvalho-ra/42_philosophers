@@ -6,7 +6,7 @@
 /*   By: rcarvalh <rcarvalh@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:23:02 by rcarvalh          #+#    #+#             */
-/*   Updated: 2023/05/17 13:27:56 by rcarvalh         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:39:46 by rcarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,26 @@ t_data_philo	*priv_data_philos(t_info *info)
 	t_data_philo	*ph;
 	pthread_mutex_t	*mutex;
 
-	mutex = create_forks(info);
-	info->mutex = mutex;
-	i = 0;
-	ph = malloc(sizeof(t_data_philo) * info->n_philos);
-	if (!ph)
-		return (NULL);
-	while (i < info->n_philos)
-	{
-		ph[i].left = &mutex[i];
-		if (i == info->n_philos - 1)
-			ph[i].right = &mutex[0];
-		else
-			ph[i].right = &mutex[i + 1];
-		ph[i].index = i + 1;
-		ph[i].t_last_meal = 0;
-		ph[i].meals = 0;
-		ph[i].info = info;
-		i++;
-	}
+
+		mutex = create_forks(info);
+		info->mutex = mutex;
+		i = 0;
+		ph = malloc(sizeof(t_data_philo) * info->n_philos);
+		if (!ph)
+			return (NULL);
+		while (i < info->n_philos)
+		{
+			ph[i].left = &mutex[i];
+			if (i == info->n_philos - 1)
+				ph[i].right = &mutex[0];
+			else
+				ph[i].right = &mutex[i + 1];
+			ph[i].index = i + 1;
+			ph[i].t_last_meal = 0;
+			ph[i].meals = 0;
+			ph[i].info = info;
+			i++;
+		}
 	return (ph);
 }
 
